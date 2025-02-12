@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import {
+    View,
+    Text,
+    FlatList,
+    TextInput,
+    ActivityIndicator,
+    TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/styles";
+import FilterTab from "../components/FilterTab";
 
 const datasetId = "d_9740df787da2b59a0b5bd76a6c33453d";
 const baseUrl = "https://data.gov.sg/api/action/datastore_search";
 
 const Home = () => {
     const [data, setData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const navigation = useNavigation();
 
     const fetchData = async () => {
         try {
@@ -18,12 +31,7 @@ const Home = () => {
             let hasMoreData = true;
 
             while (hasMoreData) {
-                const rowFilters = JSON.stringify({
-                    year: { type: "ILIKE", value: "" }
-                });
-
-                const url = `${baseUrl}?resource_id=${datasetId}&filters=${encodeURIComponent(rowFilters)}&offset=${offset}&limit=100`;
-
+                const url = `${baseUrl}?resource_id=${datasetId}&offset=${offset}&limit=100`;
                 const response = await fetch(url);
                 const json = await response.json();
 
@@ -35,11 +43,12 @@ const Home = () => {
                 }
             }
 
-            const filteredData = allData.filter(
-                item => parseInt(item.year) >= 2000 && parseInt(item.year) <= 2015
+            const filtered = allData.filter(
+                (item) => parseInt(item.year) >= 2000 && parseInt(item.year) <= 2015
             );
 
-            setData(filteredData);
+            setData(filtered);
+            setFilteredData(filtered);
             setLoading(false);
         } catch (err) {
             console.error("Error fetching data:", err);
@@ -52,46 +61,66 @@ const Home = () => {
         fetchData();
     }, []);
 
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+        const filtered = data.filter((item) =>
+            item.waste_type.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredData(filtered);
+    };
+
     return (
         <SafeAreaView style={styles.safeContainer}>
             <View style={styles.headerContainer}>
-                <Text style={styles.title}>Recycling Rates by Waste Type</Text>
-                <Text style={styles.subtitle}>Data from Jan 2000 to Dec 2015</Text>
+                <Text style={styles.title}>♻️ Recycling Rates by Waste Type 🍃</Text>
+                <Text style={styles.subtitle}>📊 Data from Jan 2000 to Dec 2015</Text>
+
             </View>
+
+            {/* 🔍 Search Box */}
+            <TextInput
+                style={styles.searchBox}
+                placeholder="Search waste type..."
+                value={searchQuery}
+                onChangeText={handleSearch}
+            />
+
+            {/* 🛠 Filter Component */}
+            <FilterTab data={data} setFilteredData={setFilteredData} />
 
             {loading ? (
                 <ActivityIndicator size="large" color="blue" />
             ) : error ? (
                 <Text style={styles.error}>Error: {error}</Text>
             ) : (
-                <View style={styles.listContainer}> 
-                    {/* Table Header */}
-                    <View style={styles.tableHeader}>
-                        <Text style={styles.columnHeader}>Year</Text>
-                        <Text style={styles.columnHeader}>Waste Type</Text>
-                        <Text style={styles.columnHeader}>Recycling Rate</Text>
-                    </View>
-
-                    {/* FlatList inside a View with `flex: 1` */}
-                    <FlatList
-                        data={data}
-                        keyExtractor={(item, index) => index.toString()}
-                        contentContainerStyle={{ paddingBottom: 50 }} // ✅ Prevents last rows from being cut off
-                        style={{ flex: 1 }} // ✅ Ensures FlatList takes full height
-                        renderItem={({ item }) => (
-                            <View style={styles.tableRow}>
-                                <Text style={styles.cell}>{item["year"] || "N/A"}</Text>
-                                <Text style={styles.cell}>{item["waste_type"] || "Unknown"}</Text>
-                                <Text style={styles.cell}>{item["recycling_rate"] ? `${item["recycling_rate"]}%` : "N/A"}</Text>
-                            </View>
-                        )}
-                        ListFooterComponent={
-                            <View style={styles.footerContainer}>
-                                <Text style={styles.footerText}>This is the bottom of the page :3</Text>
-                            </View>
-                        } // ✅ Added back the footer!
-                    />
-                </View>
+                <FlatList
+                    data={filteredData}
+                    keyExtractor={(item, index) => index.toString()}
+                    ListHeaderComponent={
+                        <View style={styles.tableHeader}>
+                            <Text style={styles.columnHeader}>Year</Text>
+                            <Text style={styles.columnHeader}>Waste Type</Text>
+                            <Text style={styles.columnHeader}>Recycling Rate</Text>
+                        </View>
+                    }
+                    ListFooterComponent={ // ✅ Correctly placing the footer here
+                        <View>
+                          <Text style={styles.subtitle}>You've reached the bottom :3</Text>
+                        </View>
+                      }
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={styles.tableRow}
+                            onPress={() => navigation.navigate("Details", { item })}
+                        >
+                            <Text style={styles.cell}>{item.year || "N/A"}</Text>
+                            <Text style={styles.cell}>{item.waste_type || "Unknown"}</Text>
+                            <Text style={styles.cell}>
+                                {item.recycling_rate ? `${item.recycling_rate}%` : "N/A"}
+                            </Text>
+                        </TouchableOpacity>
+                    )}
+                />
             )}
         </SafeAreaView>
     );
