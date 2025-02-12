@@ -7,18 +7,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   headerContainer: {
-    paddingTop: 20, // Extra padding to avoid overlapping with camera notch
+    paddingTop: 20, // Avoid overlapping with camera notch
     paddingBottom: 10,
     alignItems: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 5,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 12,
     textAlign: "center",
     color: "#666",
     marginBottom: 10,
@@ -28,9 +28,8 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
   },
-  tableContainer: {
-    flex: 1,
-    marginHorizontal: 5, // Prevents text from touching screen edges
+  listContainer: {
+    flex: 1, // ✅ Ensures FlatList takes full height
   },
   tableHeader: {
     flexDirection: "row",
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#333",
   },
   columnHeader: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     flex: 1,
     textAlign: "center",
@@ -53,9 +52,17 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   cell: {
-    fontSize: 14,
+    fontSize: 12,
     flex: 1,
     textAlign: "center",
+  },
+  footerContainer: {
+    alignItems: "center",
+    paddingVertical: 20,
+  },
+  footerText: {
+    fontSize: 14,
+    color: "#888",
   },
 });
 

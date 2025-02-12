@@ -1,28 +1,19 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack"; // Use Native Stack
-import HomeScreen from "./src/pages/Home";
-import DetailsScreen from "./src/pages/Details"; // Fixed incorrect path
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./src/screens/Home";
+import Details from "./src/screens/Details";
 
-const Stack = createNativeStackNavigator(); // Use Native Stack
+const Stack = createNativeStackNavigator();
 
-const App = () => {
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={{ headerShown: false }} // Hide header if needed
-        />
-        <Stack.Screen 
-          name="Details" 
-          component={DetailsScreen} 
-          options={{ title: "Details Page" }} // Custom header title
-        />
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={Details} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
+}
 
-export default App;
