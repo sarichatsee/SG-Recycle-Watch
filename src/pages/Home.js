@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/styles";
 import FilterTab from "../components/FilterTab";
 
+// API configuration to fetch dataset from data.gov.sg
 const datasetId = "d_9740df787da2b59a0b5bd76a6c33453d";
 const baseUrl = "https://data.gov.sg/api/action/datastore_search";
 
