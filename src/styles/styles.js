@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: "#E8F5E9", // 🌿 Light Green Background
+    backgroundColor: "#E8F5E9",
   },
   headerContainer: {
     paddingTop: 20,
@@ -15,26 +15,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#2E7D32", // 🌱 Dark Green
+    color: "#2E7D32",
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 12,
     textAlign: "center",
-    color: "#4CAF50", // 🍃 Medium Green
+    color: "#4CAF50",
     marginBottom: 10,
   },
   searchBox: {
     height: 40,
-    borderColor: "#66BB6A", // 🍀 Green Border
+    borderColor: "#66BB6A",
     borderWidth: 1.5,
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 10,
-    backgroundColor: "#F1F8E9", // 🍏 Light Green
+    backgroundColor: "#F1F8E9",
   },
   filterContainer: {
-    backgroundColor: "#C8E6C9", // 🌲 Light Green Card
+    backgroundColor: "#C8E6C9",
     borderRadius: 8,
     padding: 8,
     marginBottom: 10,
@@ -51,16 +51,23 @@ const styles = StyleSheet.create({
   picker: {
     height: 35,
     fontSize: 12,
-    color: "#1B5E20", // 🍀 Dark Green Text
+    color: "#1B5E20",
   },
   filterLabel: {
     fontSize: 12,
     textAlign: "center",
     marginBottom: -5,
-    color: "#388E3C", // 🌿 Slightly Dark Green
+    color: "#388E3C",
+  },
+  selectedText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#1B5E20",
+    textAlign: "center",
+    marginBottom: 5,
   },
   filterButton: {
-    backgroundColor: "#81C784", // 🍃 Soft Green Button
+    backgroundColor: "#81C784",
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 5,
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 10,
-    backgroundColor: "#A5D6A7", // 🌿 Muted Green
+    backgroundColor: "#A5D6A7",
     borderBottomWidth: 2,
     borderBottomColor: "#388E3C",
   },
@@ -85,23 +92,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     flex: 1,
     textAlign: "center",
-    color: "#1B5E20", // 🍀 Deep Green
+    color: "#1B5E20",
   },
   tableRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#C5E1A5", // 🍃 Light Green Accent
+    borderBottomColor: "#C5E1A5",
   },
   cell: {
     fontSize: 12,
     flex: 1,
     textAlign: "center",
-    color: "#2E7D32", // 🌱 Plant Green
+    color: "#2E7D32",
   },
   item: {
-    backgroundColor: "#DCEDC8", // 🌿 Soft Green Background
+    backgroundColor: "#DCEDC8",
     padding: 16,
     marginBottom: 10,
     borderRadius: 8,
@@ -112,21 +119,19 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#2E7D32", // 🌱 Title Green
+    color: "#2E7D32",
   },
   detailText: {
     fontSize: 16,
     marginBottom: 5,
-    color: "#1B5E20", // 🍀 Dark Green
+    color: "#1B5E20",
   },
   bowserGif: {
-    width: 150, // Adjust size as needed
+    width: 150,
     height: 150,
     alignSelf: "center",
     marginTop: 20,
   },
-  
 });
 
 export default styles;
-

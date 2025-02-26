@@ -41,7 +41,13 @@ const FilterTab = ({ data, setFilteredData }) => {
         {/* Year Picker */}
         <View style={styles.pickerWrapper}>
           <Text style={styles.filterLabel}>Year</Text>
-          <Picker selectedValue={selectedYear} onValueChange={(value) => setSelectedYear(value)} style={styles.picker}>
+          <Text style={styles.selectedText}>{selectedYear || "All"}</Text> {/* Shows the selected value */}
+          <Picker
+            selectedValue={selectedYear}
+            onValueChange={(value) => setSelectedYear(value)}
+            style={styles.picker}
+            mode="dropdown"
+          >
             <Picker.Item label="All" value="" />
             {years.map((year) => (
               <Picker.Item key={year} label={year.toString()} value={year} />
@@ -52,7 +58,13 @@ const FilterTab = ({ data, setFilteredData }) => {
         {/* Waste Type Picker */}
         <View style={styles.pickerWrapper}>
           <Text style={styles.filterLabel}>Waste</Text>
-          <Picker selectedValue={selectedWasteType} onValueChange={(value) => setSelectedWasteType(value)} style={styles.picker}>
+          <Text style={styles.selectedText}>{selectedWasteType || "All"}</Text> {/* Shows the selected value */}
+          <Picker
+            selectedValue={selectedWasteType}
+            onValueChange={(value) => setSelectedWasteType(value)}
+            style={styles.picker}
+            mode="dropdown"
+          >
             <Picker.Item label="All" value="" />
             {wasteTypes.map((type) => (
               <Picker.Item key={type} label={type} value={type} />
@@ -63,7 +75,19 @@ const FilterTab = ({ data, setFilteredData }) => {
         {/* Sorting Picker */}
         <View style={styles.pickerWrapper}>
           <Text style={styles.filterLabel}>Sort</Text>
-          <Picker selectedValue={sortOption} onValueChange={(value) => setSortOption(value)} style={styles.picker}>
+          <Text style={styles.selectedText}>
+            {sortOption === "year_asc" ? "Year ↑" :
+             sortOption === "year_desc" ? "Year ↓" :
+             sortOption === "rate_asc" ? "Rate ↑" :
+             sortOption === "rate_desc" ? "Rate ↓" :
+             "None"}
+          </Text> {/* Shows the selected value */}
+          <Picker
+            selectedValue={sortOption}
+            onValueChange={(value) => setSortOption(value)}
+            style={styles.picker}
+            mode="dropdown"
+          >
             <Picker.Item label="None" value="" />
             <Picker.Item label="Year ↑" value="year_asc" />
             <Picker.Item label="Year ↓" value="year_desc" />
